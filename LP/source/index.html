@@ -1032,8 +1032,45 @@
             const btnText = submitBtn.querySelector('.btn-text');
             const loading = submitBtn.querySelector('.loading');
 
+            // フォーム入力開始時のトラッキング
+            const emailInput = form.querySelector('input[type="email"]');
+            const professionInput = form.querySelector('input[name="profession"]');
+            
+            // メールアドレス入力開始時のトラッキング
+            if (emailInput) {
+                emailInput.addEventListener('focus', function() {
+                    gtag('event', 'form_start', {
+                        'event_category': 'engagement',
+                        'event_label': formId + '_email_focus',
+                        'form_name': formId
+                    });
+                    console.log('Email input focus tracked:', formId);
+                });
+            }
+            
+            // 職業入力開始時のトラッキング
+            if (professionInput) {
+                professionInput.addEventListener('focus', function() {
+                    gtag('event', 'form_start', {
+                        'event_category': 'engagement',
+                        'event_label': formId + '_profession_focus',
+                        'form_name': formId
+                    });
+                    console.log('Profession input focus tracked:', formId);
+                });
+            }
+
             form.addEventListener('submit', function(e) {
             e.preventDefault();
+                
+                // フォーム送信時のトラッキング
+                gtag('event', 'form_submit', {
+                    'event_category': 'engagement',
+                    'event_label': formId + '_submit',
+                    'form_name': formId,
+                    'form_location': formId.includes('hero') ? 'hero_section' : 'bottom_section'
+                });
+                console.log('Form submit tracked:', formId);
                 
                 // フォームデータの取得
                 const formData = new FormData(form);
@@ -1072,11 +1109,29 @@
                     successMessage.style.display = 'block';
                     errorMessage.style.display = 'none';
                     console.log('データがスプレッドシートに送信されました');
+                    
+                    // 成功時のトラッキング
+                    gtag('event', 'form_success', {
+                        'event_category': 'engagement',
+                        'event_label': formId + '_success',
+                        'form_name': formId,
+                        'form_location': formId.includes('hero') ? 'hero_section' : 'bottom_section'
+                    });
+                    console.log('Form success tracked:', formId);
                 })
                 .catch(error => {
                     // エラー時の処理
                     console.error('送信エラー:', error);
                     showError(errorMessage, '送信に失敗しました。しばらく時間をおいて再度お試しください。');
+                    
+                    // エラー時のトラッキング
+                    gtag('event', 'form_error', {
+                        'event_category': 'engagement',
+                        'event_label': formId + '_error',
+                        'form_name': formId,
+                        'form_location': formId.includes('hero') ? 'hero_section' : 'bottom_section'
+                    });
+                    console.log('Form error tracked:', formId);
                 })
                 .finally(() => {
                     // ボタンを元に戻す
