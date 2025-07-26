@@ -27,6 +27,9 @@ jobs:
       - name: Copy LP/source to root for deployment
         run: |
           echo "Copying LP/source contents to root directory..."
+          # 既存のファイルをクリア（.gitディレクトリは保持）
+          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          # LP/sourceの内容をルートにコピー
           cp -r LP/source/* .
           echo "Files in root directory after copy:"
           ls -la
