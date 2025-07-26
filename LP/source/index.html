@@ -1105,9 +1105,6 @@
                 })
                 .then(response => {
                     // 成功時の処理
-                    form.style.display = 'none';
-                    successMessage.style.display = 'block';
-                    errorMessage.style.display = 'none';
                     console.log('データがスプレッドシートに送信されました');
                     
                     // 成功時のトラッキング
@@ -1118,6 +1115,9 @@
                         'form_location': formId.includes('hero') ? 'hero_section' : 'bottom_section'
                     });
                     console.log('Form success tracked:', formId);
+                    
+                    // ありがとうページにリダイレクト
+                    window.location.href = 'thank-you.html';
                 })
                 .catch(error => {
                     // エラー時の処理
