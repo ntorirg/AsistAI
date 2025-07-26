@@ -46,7 +46,7 @@
         .hero {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
-            padding: 80px 0;
+            padding: 120px 0 80px 0;
             position: relative;
             overflow: hidden;
         }
@@ -138,7 +138,7 @@
             padding: 80px 0;
         }
 
-        .section:nth-child(even) {
+        .section:nth-child(even):not(.story):not(.final-cta):not(.problem) {
             background: #f8f9fa;
         }
 
@@ -591,6 +591,18 @@
 
         /* レスポンシブデザイン - スマホ対応 */
         @media (max-width: 768px) {
+            header {
+                padding: 10px 0;
+            }
+            
+            header .container {
+                padding: 0 15px;
+            }
+            
+            header div {
+                font-size: 1rem;
+            }
+            
             .container {
                 padding: 0 15px;
                 max-width: 100%;
@@ -745,6 +757,15 @@
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header style="position: fixed; top: 0; left: 0; right: 0; background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="container" style="display: flex; justify-content: flex-start; align-items: center;">
+            <div style="color: white; font-size: 1.1rem; font-weight: bold;">
+                事業計画アシストAI for 補助金
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Section -->
     <section class="hero">
         <!-- 背景画像（画像がある場合） -->
